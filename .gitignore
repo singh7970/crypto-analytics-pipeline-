@@ -1,0 +1,26 @@
+# Environments
+env/
+venv/
+.env
+
+# Cache
+__pycache__/
+*.py[cod]
+
+# Packages
+*.zip
+*.tar.gz
+
+# Data testing
+data_output/
+parquet_output/
+
+# AWS Lambda deployment packages
+lambda_handler/*.zip
+
+transform_lambda/pandas/
+transform_lambda/pyarrow/
+transform_lambda/*.dist-info/
+transform_lambda/bin/
+transform_lambda/*.so
+transform_lambda/*.zip
