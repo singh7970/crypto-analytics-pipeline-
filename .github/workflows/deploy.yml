@@ -65,15 +65,15 @@ jobs:
           
           # Upload the code
           aws lambda update-function-code \
-            --function-name CryptoIngestionLambda \
+            --function-name crypto-function \
             --zip-file fileb://ingestion.zip
             
           # Wait for AWS to finish updating the code before changing the layer
-          aws lambda wait function-updated --function-name CryptoIngestionLambda
+          aws lambda wait function-updated --function-name crypto-function
             
           # Attach the newly published layer
           aws lambda update-function-configuration \
-            --function-name CryptoIngestionLambda \
+            --function-name crypto-function \
             --layers ${{ env.LAYER_ARN }}
 
       - name: Package and Deploy Transform Lambda
@@ -85,13 +85,13 @@ jobs:
           
           # Upload the code
           aws lambda update-function-code \
-            --function-name CryptoTransformLambda \
+            --function-name crypto-function \
             --zip-file fileb://transform.zip
             
           # Wait for AWS to finish updating the code before changing the layer
-          aws lambda wait function-updated --function-name CryptoTransformLambda
+          aws lambda wait function-updated --function-name crypto-function
             
           # Attach the newly published layer
           aws lambda update-function-configuration \
-            --function-name CryptoTransformLambda \
+            --function-name crypto-function \
             --layers ${{ env.LAYER_ARN }}
