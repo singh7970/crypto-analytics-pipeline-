@@ -56,25 +56,7 @@ jobs:
           echo "We successfully published layer: $LAYER_ARN"
           echo "LAYER_ARN=$LAYER_ARN" >> $GITHUB_ENV
 
-      - name: Package and Deploy Ingestion Lambda
-        run: |
-          # Zip only the handler
-          cd lambda_handler
-          zip -r ../ingestion.zip handler.py
-          cd ..
-          
-          # Upload the code
-          aws lambda update-function-code \
-            --function-name crypto-function \
-            --zip-file fileb://ingestion.zip
-            
-          # Wait for AWS to finish updating the code before changing the layer
-          aws lambda wait function-updated --function-name crypto-function
-            
-          # Attach the newly published layer
-          aws lambda update-function-configuration \
-            --function-name crypto-function \
-            --layers ${{ env.LAYER_ARN }}
+
 
       - name: Package and Deploy Transform Lambda
         run: |
