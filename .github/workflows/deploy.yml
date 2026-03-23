@@ -31,6 +31,14 @@ jobs:
           mkdir -p build_layer/python
           pip install -r layer_requirements.txt -t build_layer/python/
           
+          # Clean up unnecessary files to reduce package size
+          find build_layer/python -type d -name "tests" -exec rm -rf {} + 2>/dev/null || true
+          find build_layer/python -type d -name "test" -exec rm -rf {} + 2>/dev/null || true
+          find build_layer/python -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
+          find build_layer/python -name "*.dist-info" -type d -exec rm -rf {} + 2>/dev/null || true
+          find build_layer/python -name "*.so" -exec strip {} \; 2>/dev/null || true
+          find build_layer/python -name "*.pyc" -delete || true
+          
           # Zip the layer
           cd build_layer
           zip -r ../crypto-layer.zip python/

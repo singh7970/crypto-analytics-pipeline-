@@ -64,7 +64,7 @@ def lambda_handler(event, context):
     
     df.to_parquet(
         tmp_parquet_file,
-        engine="pyarrow",
+        engine="fastparquet",
         index=False
     )
     
